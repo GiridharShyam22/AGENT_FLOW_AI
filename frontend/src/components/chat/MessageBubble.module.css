@@ -1,0 +1,196 @@
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  max-width: 100%;
+}
+
+.row--user {
+  flex-direction: row-reverse;
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.avatar--ai {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.35);
+}
+
+.avatar--user {
+  background: var(--glass);
+  border: 1px solid var(--border-hover);
+  color: var(--text-muted);
+}
+
+/* ── Content ────────────────────────────────────────────── */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 75%;
+}
+
+.row--user .content {
+  align-items: flex-end;
+}
+
+/* ── Bubble ─────────────────────────────────────────────── */
+.bubble {
+  padding: 14px 18px;
+  border-radius: 4px 18px 18px 18px;
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  word-break: break-word;
+}
+
+.bubble--ai {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 4px 18px 18px 18px;
+}
+
+.bubble--user {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  border-radius: 18px 4px 18px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.bubble__text {
+  margin: 0;
+  color: inherit;
+}
+
+/* Markdown styles inside AI bubble */
+.bubble__markdown p { margin: 0 0 10px; color: var(--text-muted); }
+.bubble__markdown p:last-child { margin-bottom: 0; }
+.bubble__markdown strong { color: var(--text); }
+.bubble__markdown code {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-size: 0.85em;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+.bubble__markdown pre {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+.bubble__markdown pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text);
+}
+.bubble__markdown ul, .bubble__markdown ol {
+  padding-left: 20px;
+  margin: 8px 0;
+  color: var(--text-muted);
+}
+.bubble__markdown li { margin-bottom: 4px; }
+.bubble__markdown h3 { color: var(--text); font-size: var(--text-base); margin: 12px 0 6px; }
+
+/* ── Sources ────────────────────────────────────────────── */
+.sources {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.sources__label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dimmed);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.source_tag {
+  padding: 2px 9px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xs);
+  font-size: 10px;
+  color: var(--accent);
+  font-family: monospace;
+}
+
+/* ── Timestamp & Meta ────────────────────────────────────── */
+.meta_row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.time {
+  font-size: 10px;
+  color: var(--text-dimmed);
+  letter-spacing: 0.02em;
+}
+
+.speak_button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.speak_button:hover {
+  background: var(--glass-hover);
+  color: var(--text);
+}
+
+/* ── Streaming cursor ───────────────────────────────────── */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 15px;
+  background: var(--primary);
+  border-radius: 1px;
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blink 0.9s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.bubble__empty {
+  color: var(--text-dimmed);
+  font-style: italic;
+  font-size: var(--text-xs);
+}

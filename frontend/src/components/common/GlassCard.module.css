@@ -1,0 +1,66 @@
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base);
+}
+
+/* ── Before shimmer border ──────────────────────────────── */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* ── Hover ──────────────────────────────────────────────── */
+.card--hover:hover {
+  background: var(--glass-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.card--hover:hover::before {
+  opacity: 1;
+}
+
+/* ── Variants ───────────────────────────────────────────── */
+.card--glow {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.card--glow:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.15), var(--shadow-md);
+}
+
+.card--accent {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+}

@@ -1,0 +1,65 @@
+.tf-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    box-shadow: var(--shadow);
+
+    padding: 24px;
+
+    transition: .25s;
+
+}
+
+.tf-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: rgba(255, 255, 255, .15);
+
+}
+
+.tf-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+
+}
+
+.tf-card-title {
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin: 0;
+
+}
+
+.tf-card-subtitle {
+
+    color: var(--text-secondary);
+
+    margin-top: 6px;
+
+    font-size: 14px;
+
+}
+
+.tf-card-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+}

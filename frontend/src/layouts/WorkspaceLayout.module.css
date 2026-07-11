@@ -1,0 +1,50 @@
+/* ── Two-column workspace ─────────────────────────────────── */
+.workspace {
+  position: relative;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  isolation: isolate;
+}
+
+/* ── Ambient background ──────────────────────────────────── */
+.workspace__bg {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: -3;
+}
+
+/* Subtle dot grid — monochrome */
+.workspace__grid {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+
+/* ── Main column ─────────────────────────────────────────── */
+.workspace__main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-left: 1px solid var(--border);
+}
+
+.workspace__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 24px 32px 24px;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .workspace { grid-template-columns: 1fr; }
+}

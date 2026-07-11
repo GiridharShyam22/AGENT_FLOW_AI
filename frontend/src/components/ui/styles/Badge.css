@@ -1,0 +1,59 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 16px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    transition: all .25s ease;
+
+    cursor: default;
+
+    backdrop-filter: blur(12px);
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+}
+
+/* Success */
+
+.badge.green {
+    background: rgba(34, 197, 94, .15);
+    color: #FFFFFF;
+}
+
+/* Primary */
+
+.badge.blue {
+    background: rgba(255, 255, 255, .12);
+    color: #888888;
+}
+
+/* Error */
+
+.badge.red {
+    background: rgba(239, 68, 68, .15);
+    color: #ef4444;
+}
+
+/* Warning */
+
+.badge.yellow {
+    background: rgba(250, 204, 21, .15);
+    color: #facc15;
+}
+
+/* Purple */
+
+.badge.purple {
+    background: rgba(255, 255, 255, .15);
+    color: #A0A0A0;
+}

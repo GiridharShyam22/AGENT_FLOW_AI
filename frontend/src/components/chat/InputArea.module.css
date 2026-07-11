@@ -1,0 +1,156 @@
+.wrap {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+  overflow: hidden;
+}
+
+.wrap--focused {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08), var(--shadow-md);
+}
+
+/* Focus glow line at top */
+.wrap__glow_line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform-origin: left;
+  z-index: 1;
+}
+
+/* ── Input row ──────────────────────────────────────────── */
+.input_row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 14px 16px 10px;
+}
+
+.input_actions_left,
+.input_actions_right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-bottom: 3px;
+}
+
+.textarea {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 28px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.textarea::placeholder {
+  color: var(--text-dimmed);
+}
+
+.textarea::-webkit-scrollbar {
+  width: 3px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* ── Action buttons ─────────────────────────────────────── */
+.action_btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.action_btn:hover {
+  background: var(--glass);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* ── Send button ────────────────────────────────────────── */
+.send_btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  color: var(--text-dimmed);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.send_btn--active {
+  background: var(--gradient-primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.45);
+}
+
+.send_btn--active:hover {
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.60);
+}
+
+.send_btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Hint footer ────────────────────────────────────────── */
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 18px 10px;
+  font-size: 11px;
+  color: var(--text-dimmed);
+}
+
+.hint__icon {
+  color: var(--primary);
+  display: flex;
+  margin-right: 2px;
+}
+
+.hint kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}

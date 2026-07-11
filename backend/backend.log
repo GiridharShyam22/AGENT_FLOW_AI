@@ -1,0 +1,103 @@
+INFO:     Will watch for changes in these directories: ['/Users/giridharshyam/Desktop/techflow-support-bot/backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [16135] using StatReload
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/venv/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/venv/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+    config.load()
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/venv/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/giridharshyam/Desktop/techflow-support-bot/backend/app.py", line 243
+    yield f"data: {json.dumps({'type': 'token', 'content': '\n\n*Agent is searching the web...*\n\n'})}\n\n"
+                                                                                                            ^
+SyntaxError: f-string expression part cannot include a backslash
+WARNING:  StatReload detected changes in 'app.py'. Reloading...
+INFO:     Started server process [16153]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+
+======================================================================
+🚀 INITIALIZING AGENTFLOW BOT
+======================================================================
+
+📚 Loading knowledge base from: /Users/giridharshyam/Desktop/techflow-support-bot/data/knowledge_base/faqs.json
+✅ Loaded 20 FAQ items
+
+🔧 Initializing RAG pipeline...
+🔧 Initializing RAG Pipeline...
+  📥 Loading embedding model (all-MiniLM-L6-v2)...
+  ✅ Embedding model loaded
+  📚 Embedding 20 FAQ items...
+  ✅ Embedded 20 items
+✅ RAG Pipeline initialized
+
+
+🤖 Initializing chatbot core...
+✅ Chatbot core initialized
+
+
+======================================================================
+✅ AGENTFLOW BOT READY!
+======================================================================
+
+🌐 API running on http://0.0.0.0:8000
+📖 API docs available at http://0.0.0.0:8000/docs
+======================================================================
+
+INFO:     127.0.0.1:65069 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65111 - "OPTIONS /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65111 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65112 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65183 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65246 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "OPTIONS /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65383 - "POST /chat/stream HTTP/1.1" 200 OK
+/opt/homebrew/Cellar/python@3.11/3.11.15_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

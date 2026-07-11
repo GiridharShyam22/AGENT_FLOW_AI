@@ -1,0 +1,118 @@
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base),
+    border-color var(--transition-base);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active:not(.btn--disabled) {
+  transform: scale(0.97);
+}
+
+/* ── Sizes ──────────────────────────────────────────────── */
+.btn--sm {
+  height: 36px;
+  padding: 0 16px;
+  font-size: var(--text-sm);
+}
+
+.btn--md {
+  height: 44px;
+  padding: 0 24px;
+  font-size: var(--text-base);
+}
+
+.btn--lg {
+  height: 52px;
+  padding: 0 32px;
+  font-size: var(--text-lg);
+}
+
+/* ── Primary ────────────────────────────────────────────── */
+.btn--primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.20);
+}
+
+.btn--primary:hover:not(.btn--disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.35);
+}
+
+/* ── Outline ────────────────────────────────────────────── */
+.btn--outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+  backdrop-filter: blur(8px);
+}
+
+.btn--outline:hover:not(.btn--disabled) {
+  background: var(--glass-hover);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* ── Ghost ──────────────────────────────────────────────── */
+.btn--ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn--ghost:hover:not(.btn--disabled) {
+  background: var(--glass);
+  color: var(--text);
+}
+
+/* ── Disabled ───────────────────────────────────────────── */
+.btn--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Content wrapper ────────────────────────────────────── */
+.btn__content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Ripple ─────────────────────────────────────────────── */
+.btn__ripple {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-expand 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-expand {
+  to {
+    transform: translate(-50%, -50%) scale(200);
+    opacity: 0;
+  }
+}

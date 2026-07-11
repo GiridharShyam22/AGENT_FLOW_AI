@@ -1,0 +1,114 @@
+.section {
+  padding: var(--space-24) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-16);
+}
+
+/* ── Feature card ───────────────────────────────────────── */
+.feature_card {
+  position: relative;
+  padding: var(--space-8);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: default;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* Background gradient layer */
+.feature_card__bg {
+  position: absolute;
+  inset: 0;
+  background: var(--feat-gradient);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.feature_card:hover .feature_card__bg {
+  opacity: 1;
+}
+
+.feature_card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(0,0,0,0.3);
+}
+
+/* Icon */
+.feature_card__icon {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--feat-color);
+  margin-bottom: var(--space-5);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.feature_card:hover .feature_card__icon {
+  background: rgba(var(--feat-color), 0.12);
+  box-shadow: 0 0 24px rgba(0,0,0,0.3);
+}
+
+/* Text */
+.feature_card__title {
+  position: relative;
+  z-index: 1;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+  transition: color var(--transition-fast);
+}
+
+.feature_card:hover .feature_card__title {
+  color: var(--feat-color, var(--text));
+}
+
+.feature_card__desc {
+  position: relative;
+  z-index: 1;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Bottom accent line */
+.feature_card__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--feat-color, var(--primary));
+  transition: width var(--transition-slow);
+}
+
+.feature_card:hover .feature_card__line {
+  width: 100%;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}

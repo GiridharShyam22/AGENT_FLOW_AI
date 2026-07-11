@@ -1,0 +1,395 @@
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* ── Logo ───────────────────────────────────────────────── */
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 4px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.sidebar__logo_icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.sidebar__logo_text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sidebar__logo_name {
+  font-family: var(--font-logo);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.sidebar__logo_ai {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.sidebar__logo_sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── New Chat btn ───────────────────────────────────────── */
+.sidebar__new_btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  font-family: var(--font-family);
+}
+
+.sidebar__new_btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+
+/* ── Recent Chats ───────────────────────────────────────── */
+.sidebar__recent_chats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.sidebar__recent_chats::-webkit-scrollbar { width: 3px; }
+.sidebar__recent_chats::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+}
+
+.recent_chats__header {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dimmed);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0 4px 10px;
+}
+
+.recent_chats__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recent_chats__empty {
+  font-size: 11px;
+  color: var(--text-dimmed);
+  padding: 4px;
+  font-style: italic;
+}
+
+.recent_chat_btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family);
+  transition: all var(--transition-fast);
+}
+
+.recent_chat_btn:hover {
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+}
+
+.recent_chat_btn--active {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.1);
+  color: var(--text);
+}
+
+.recent_chat_title {
+  flex: 1;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__nav_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+.sidebar__nav_item:hover {
+  color: var(--text);
+  background: var(--glass);
+}
+
+.sidebar__nav_item--active {
+  color: var(--text);
+}
+
+.sidebar__nav_indicator {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: -1;
+}
+
+.sidebar__nav_icon {
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.sidebar__divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+/* ── Spacer pushes footer down ──────────────────────────── */
+.sidebar__spacer {
+  flex: 1;
+}
+
+/* ── Recent ─────────────────────────────────────────────── */
+.sidebar__recent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.sidebar__recent_label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dimmed);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 4px 8px;
+}
+
+.sidebar__recent_item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__recent_item:hover {
+  color: var(--text);
+  background: var(--glass);
+}
+
+.sidebar__recent_item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── User profile + logout ──────────────────────────────── */
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.sidebar__user_avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar__user_info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar__user_name {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__user_email {
+  font-size: 10px;
+  color: var(--text-dimmed);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__logout_btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-dimmed);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.sidebar__logout_btn:hover {
+  background: rgba(248,113,113,0.1);
+  border-color: rgba(248,113,113,0.2);
+  color: var(--danger);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.sidebar__footer {
+  padding: 14px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar__footer_status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sidebar__footer_dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.sidebar__footer_text {
+  font-size: 11px;
+  color: var(--text-dimmed);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.sidebar__footer_back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-xs);
+  color: var(--text-dimmed);
+  text-decoration: none;
+  margin-top: 2px;
+  transition: color var(--transition-fast);
+}
+
+.sidebar__footer_back:hover {
+  color: var(--text);
+}

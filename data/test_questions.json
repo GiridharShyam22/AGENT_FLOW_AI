@@ -1,0 +1,64 @@
+{
+  "tests": [
+    {
+      "question": "What is an autonomous AI agent?",
+      "expected_category": "Agent Basics",
+      "expected_on_topic": true,
+      "description": "Basic concept"
+    },
+    {
+      "question": "What is tool calling?",
+      "expected_category": "Tool Calling",
+      "expected_on_topic": true,
+      "description": "Tool calling inquiry"
+    },
+    {
+      "question": "How do agents maintain memory?",
+      "expected_category": "Memory & Context",
+      "expected_on_topic": true,
+      "description": "Memory inquiry"
+    },
+    {
+      "question": "What is a multi-agent system?",
+      "expected_category": "Multi-Agent Systems",
+      "expected_on_topic": true,
+      "description": "Multi-agent inquiry"
+    },
+    {
+      "question": "How does RAG improve an AI agent?",
+      "expected_category": "RAG Integration",
+      "expected_on_topic": true,
+      "description": "RAG inquiry"
+    },
+    {
+      "question": "What happens when an agent exceeds the context window?",
+      "expected_category": "Memory & Context",
+      "expected_on_topic": true,
+      "description": "Context window limits"
+    },
+    {
+      "question": "Can agents write code?",
+      "expected_category": "Tool Calling",
+      "expected_on_topic": true,
+      "description": "Code execution inquiry"
+    },
+    {
+      "question": "What is the capital of France?",
+      "expected_category": "None",
+      "expected_on_topic": false,
+      "description": "General knowledge (off-topic)"
+    },
+    {
+      "question": "Can you give me a recipe for chocolate cake?",
+      "expected_category": "None",
+      "expected_on_topic": false,
+      "description": "Cooking recipe (off-topic)"
+    },
+    {
+      "question": "Write a python script to scrape a website.",
+      "expected_category": "None",
+      "expected_on_topic": false,
+      "description": "Coding request (off-topic for this specific knowledge base)"
+    }
+  ]
+}

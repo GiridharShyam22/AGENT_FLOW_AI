@@ -1,0 +1,102 @@
+.tf-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: none;
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    transition: all .22s ease;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    letter-spacing: -.01em;
+
+    user-select: none;
+}
+
+/* Sizes */
+
+.tf-button.sm {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 14px;
+}
+
+.tf-button.md {
+    height: 44px;
+    padding: 0 22px;
+    font-size: 15px;
+}
+
+.tf-button.lg {
+    height: 52px;
+    padding: 0 30px;
+    font-size: 16px;
+}
+
+/* Variants */
+
+.tf-button.primary {
+    background: linear-gradient(135deg,
+            var(--primary),
+            #5b8cff);
+
+    color: white;
+
+    box-shadow:
+        0 8px 30px rgba(255, 255, 255, .25);
+}
+
+.tf-button.primary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 40px rgba(255, 255, 255, .35);
+}
+
+.tf-button.secondary {
+    background: rgba(255, 255, 255, .05);
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.tf-button.secondary:hover {
+    background: rgba(255, 255, 255, .08);
+}
+
+.tf-button.danger {
+    background: #ef4444;
+
+    color: white;
+}
+
+.tf-button.danger:hover {
+    background: #dc2626;
+}
+
+.tf-button.full {
+    width: 100%;
+}
+
+.tf-button:disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+.tf-button-icon {
+    display: flex;
+    align-items: center;
+}

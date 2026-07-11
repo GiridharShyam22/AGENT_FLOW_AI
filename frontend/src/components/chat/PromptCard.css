@@ -1,0 +1,68 @@
+.prompt-card {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 16px;
+
+    padding: 18px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, .03);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    text-align: left;
+}
+
+.prompt-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: var(--primary);
+
+    background: rgba(255, 255, 255, .05);
+}
+
+.prompt-icon {
+
+    font-size: 24px;
+
+    width: 42px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+.prompt-content h4 {
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+.prompt-content p {
+
+    margin-top: 8px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}

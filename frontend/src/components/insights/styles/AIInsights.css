@@ -1,0 +1,81 @@
+.insights {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.insights h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.insight-card {
+    background: #182136;
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 16px;
+    padding: 18px;
+    transition: .25s;
+}
+
+.insight-card:hover {
+    transform: translateY(-2px);
+    border-color: #88888855;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.confidence-value {
+    font-size: 34px;
+    font-weight: 700;
+    color: #888888;
+    margin-bottom: 12px;
+}
+
+.progress {
+    height: 8px;
+    background: #243044;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #888888, #2563eb);
+}
+
+.sources-list {
+    padding-left: 18px;
+    margin: 0;
+    color: #cbd5e1;
+    line-height: 1.8;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.online {
+    background: #12361f;
+    color: #FFFFFF;
+}
+
+.kb-value {
+    color: #cbd5e1;
+    line-height: 1.7;
+}
