@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Zap, ArrowRight } from 'lucide-react'
+import { Menu, X, Zap, ArrowRight, LogOut } from 'lucide-react'
 import logoImage from '../../assets/logo.png'
 import Button from '../common/Button'
 import { useAuth } from '../../context/AuthContext'
@@ -18,7 +18,12 @@ export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -78,6 +83,14 @@ export default function Navbar() {
               >
                 Workspace <ArrowRight size={14} style={{ marginLeft: 4 }} />
               </Button>
+              <button
+                className={styles.nav__logout_btn}
+                onClick={handleLogout}
+                title="Sign out"
+              >
+                <LogOut size={14} />
+                Logout
+              </button>
             </>
           ) : (
             <>
@@ -132,9 +145,14 @@ export default function Navbar() {
             ))}
             <div className={styles.nav__mobile_cta}>
               {user ? (
-                <Button variant="primary" size="md" onClick={() => navigate('/workspace')}>
-                  Go to Workspace
-                </Button>
+                <>
+                  <Button variant="primary" size="md" onClick={() => navigate('/workspace')}>
+                    Go to Workspace
+                  </Button>
+                  <Button variant="ghost" size="md" onClick={handleLogout}>
+                    <LogOut size={14} style={{ marginRight: 6 }} /> Logout
+                  </Button>
+                </>
               ) : (
                 <>
                   <Button variant="outline" size="md" onClick={() => navigate('/login')}>
