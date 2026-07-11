@@ -228,95 +228,95 @@ async def chat_stream(request: ChatRequest):
 
             # Stream token-by-token from Ollama
             try:
-            import os
-            groq_key = os.environ.get("GROQ_API_KEY")
-
-            if groq_key:
-                from groq import AsyncGroq
-                client = AsyncGroq(api_key=groq_key)
-                
-                stream = await client.chat.completions.create(
-                    model="llama3-8b-8192",
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user",   "content": request.message},
-                    ],
-                    stream=True,
-                )
-
-                full_response = ""
-                async for chunk in stream:
-                    token = chunk.choices[0].delta.content or ""
-                    if token:
-                        full_response += token
-                        yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
-                        
-            else:
-                from ollama import AsyncClient
-                
-                stream = await AsyncClient().chat(
-                    model=request.model,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user",   "content": request.message},
-                    ],
-                    stream=True,
-                    options={"num_predict": 200, "num_ctx": 2048}
-                )
-
-                full_response = ""
-                tool_calls = []
-                async for chunk in stream:
-                    if chunk.get("message") and chunk["message"].get("tool_calls"):
-                        tool_calls = chunk["message"]["tool_calls"]
-                        break
-                        
-                    token = chunk["message"].get("content", "")
-                    if token:
-                        full_response += token
-                        # Send token as SSE
-                        yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
-
-                # If Ollama decided to call a tool
-                if tool_calls:
-                    tool_msg = '\n\n*Agent is searching the web...*\n\n'
-                    yield f"data: {json.dumps({'type': 'token', 'content': tool_msg})}\n\n"
+                import os
+                groq_key = os.environ.get("GROQ_API_KEY")
+    
+                if groq_key:
+                    from groq import AsyncGroq
+                    client = AsyncGroq(api_key=groq_key)
                     
-                    for call in tool_calls:
-                        if call["function"]["name"] == "search_web":
-                            query = call["function"]["arguments"].get("query", "")
-                            # Simulated search result for prototype
-                            tool_result = f"Web search results for '{query}': AgentFlow v2.0 includes dynamic RAG, local models, and real-time tool calling!"
+                    stream = await client.chat.completions.create(
+                        model="llama3-8b-8192",
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user",   "content": request.message},
+                        ],
+                        stream=True,
+                    )
+    
+                    full_response = ""
+                    async for chunk in stream:
+                        token = chunk.choices[0].delta.content or ""
+                        if token:
+                            full_response += token
+                            yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
                             
-                            # Second pass to generate final answer
-                            stream2 = await AsyncClient().chat(
-                                model=request.model,
-                                messages=[
-                                    {"role": "system", "content": system_prompt},
-                                    {"role": "user",   "content": request.message},
-                                    {"role": "assistant", "content": "", "tool_calls": tool_calls},
-                                    {"role": "tool", "content": tool_result}
-                                ],
-                                stream=True,
-                                options={"num_predict": 200, "num_ctx": 2048}
-                            )
+                else:
+                    from ollama import AsyncClient
+                    
+                    stream = await AsyncClient().chat(
+                        model=request.model,
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user",   "content": request.message},
+                        ],
+                        stream=True,
+                        options={"num_predict": 200, "num_ctx": 2048}
+                    )
+    
+                    full_response = ""
+                    tool_calls = []
+                    async for chunk in stream:
+                        if chunk.get("message") and chunk["message"].get("tool_calls"):
+                            tool_calls = chunk["message"]["tool_calls"]
+                            break
                             
-                            async for chunk2 in stream2:
-                                token = chunk2["message"].get("content", "")
-                                if token:
-                                    full_response += token
-                                    yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
-
-                # Append citations to final response
-                if citations:
-                    citation_text = "\n\n**Sources:**\n"
-                    for c in citations:
-                        citation_text += f'- {c["category"]}: "{c["question"]}"\n'
-                    full_response += citation_text
-                    yield f"data: {json.dumps({'type': 'token', 'content': citation_text})}\n\n"
-
-                # Send metadata as final event
-                yield f"data: {json.dumps({'type': 'done', 'sources': citations, 'confidence': min(confidence, 1.0), 'is_on_topic': is_on_topic})}\n\n"
+                        token = chunk["message"].get("content", "")
+                        if token:
+                            full_response += token
+                            # Send token as SSE
+                            yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+    
+                    # If Ollama decided to call a tool
+                    if tool_calls:
+                        tool_msg = '\n\n*Agent is searching the web...*\n\n'
+                        yield f"data: {json.dumps({'type': 'token', 'content': tool_msg})}\n\n"
+                        
+                        for call in tool_calls:
+                            if call["function"]["name"] == "search_web":
+                                query = call["function"]["arguments"].get("query", "")
+                                # Simulated search result for prototype
+                                tool_result = f"Web search results for '{query}': AgentFlow v2.0 includes dynamic RAG, local models, and real-time tool calling!"
+                                
+                                # Second pass to generate final answer
+                                stream2 = await AsyncClient().chat(
+                                    model=request.model,
+                                    messages=[
+                                        {"role": "system", "content": system_prompt},
+                                        {"role": "user",   "content": request.message},
+                                        {"role": "assistant", "content": "", "tool_calls": tool_calls},
+                                        {"role": "tool", "content": tool_result}
+                                    ],
+                                    stream=True,
+                                    options={"num_predict": 200, "num_ctx": 2048}
+                                )
+                                
+                                async for chunk2 in stream2:
+                                    token = chunk2["message"].get("content", "")
+                                    if token:
+                                        full_response += token
+                                        yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+    
+                    # Append citations to final response
+                    if citations:
+                        citation_text = "\n\n**Sources:**\n"
+                        for c in citations:
+                            citation_text += f'- {c["category"]}: "{c["question"]}"\n'
+                        full_response += citation_text
+                        yield f"data: {json.dumps({'type': 'token', 'content': citation_text})}\n\n"
+    
+                    # Send metadata as final event
+                    yield f"data: {json.dumps({'type': 'done', 'sources': citations, 'confidence': min(confidence, 1.0), 'is_on_topic': is_on_topic})}\n\n"
 
             except Exception as e:
                 # Fallback: send full response at once
