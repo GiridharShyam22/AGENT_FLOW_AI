@@ -13,7 +13,7 @@ try:
     from sentence_transformers import SentenceTransformer
     HAS_TRANSFORMERS = True
 except ImportError:
-    HAS_TRANSFORMERS = False
+    global HAS_TRANSFORMERS; HAS_TRANSFORMERS = False
     print("⚠️  sentence-transformers not installed, using lightweight TF-IDF Embedder to save RAM!")
 
 class TfidfEmbedder:
@@ -53,7 +53,7 @@ class RAGPipeline:
             except Exception as e:
                 print(f"  ⚠️  Failed to load model: {e}")
                 self.embeddings_model = TfidfEmbedder()
-                HAS_TRANSFORMERS = False
+                global HAS_TRANSFORMERS; HAS_TRANSFORMERS = False
         else:
             self.embeddings_model = TfidfEmbedder()
         
