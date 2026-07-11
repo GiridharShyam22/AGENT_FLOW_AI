@@ -37,6 +37,14 @@ export default function MainLayout() {
     setActiveSessionId(null);
   }
 
+  const handleDeleteSession = (sessionId) => {
+    setSessions(prev => prev.filter(s => s.id !== sessionId));
+    if (activeSessionId === sessionId) {
+      setActiveSessionId(null);
+      chatRef.current?.resetChat?.();
+    }
+  }
+
   const handleMessagesChange = (newMessages) => {
     if (activeSessionId) {
       setSessions(prev => prev.map(s => 
@@ -68,6 +76,7 @@ export default function MainLayout() {
         sessions={sessions}
         activeSessionId={activeSessionId}
         onSelectSession={setActiveSessionId}
+        onDeleteSession={handleDeleteSession}
       />
 
       <div className={styles.workspace__main}>

@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Plus, ChevronLeft, LogOut, MessageSquare } from 'lucide-react'
+import { Plus, ChevronLeft, LogOut, MessageSquare, Trash2 } from 'lucide-react'
 import logoImage from '../assets/logo.png'
 import { useAuth } from '../context/AuthContext'
 import styles from './WorkspaceSidebar.module.css'
 
-export default function WorkspaceSidebar({ onNewChat, sessions = [], activeSessionId, onSelectSession }) {
+export default function WorkspaceSidebar({ onNewChat, sessions = [], activeSessionId, onSelectSession, onDeleteSession }) {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
 
@@ -44,14 +44,29 @@ export default function WorkspaceSidebar({ onNewChat, sessions = [], activeSessi
             <div className={styles.recent_chats__empty}>No recent chats</div>
           ) : (
             sessions.map(session => (
-              <button
+              <div
                 key={session.id}
-                className={`${styles.recent_chat_btn} ${activeSessionId === session.id ? styles['recent_chat_btn--active'] : ''}`}
-                onClick={() => onSelectSession(session.id)}
+                className={styles.recent_chat_item}
               >
-                <MessageSquare size={14} />
-                <span className={styles.recent_chat_title}>{session.title}</span>
-              </button>
+                <button
+                  className={`${styles.recent_chat_btn} ${activeSessionId === session.id ? styles['recent_chat_btn--active'] : ''}`}
+                  onClick={() => onSelectSession(session.id)}
+                >
+                  <MessageSquare size={14} />
+                  <span className={styles.recent_chat_title}>{session.title}</span>
+                </button>
+                <button
+                  className={styles.recent_chat_delete_btn}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteSession?.(session.id);
+                  }}
+                  title="Delete chat"
+                  aria-label="Delete chat"
+                >
+                  <Trash2 size={13} />
+                </button>
+              </div>
             ))
           )}
         </div>

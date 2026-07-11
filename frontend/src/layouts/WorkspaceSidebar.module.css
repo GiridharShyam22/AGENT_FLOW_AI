@@ -123,6 +123,18 @@
   font-style: italic;
 }
 
+.recent_chat_item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.recent_chat_item:hover .recent_chat_delete_btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .recent_chat_btn {
   display: flex;
   align-items: center;
@@ -136,6 +148,8 @@
   text-align: left;
   font-family: var(--font-family);
   transition: all var(--transition-fast);
+  flex: 1;
+  min-width: 0;
 }
 
 .recent_chat_btn:hover {
@@ -156,6 +170,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+}
+
+.recent_chat_delete_btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  color: #64748b;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.recent_chat_delete_btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
 }
 
 /* ── Nav ────────────────────────────────────────────────── */
