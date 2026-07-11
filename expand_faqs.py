@@ -1,6 +1,6 @@
 import json
 
-with open("data/knowledge_base/faqs.json", "r") as f:
+with open("backend/data/knowledge_base/faqs.json", "r") as f:
     data = json.load(f)
 
 # Expanded answers
@@ -50,7 +50,7 @@ for item in data["faqItems"]:
     if item["id"] in expansions:
         item["answer"] = expansions[item["id"]]
 
-with open("data/knowledge_base/faqs.json", "w") as f:
+with open("backend/data/knowledge_base/faqs.json", "w") as f:
     json.dump(data, f, indent=2)
 
 print("Expanded all FAQs!")

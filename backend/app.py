@@ -84,7 +84,7 @@ async def startup_event():
     try:
         await connect_to_mongo()
         
-        kb_path = Path(__file__).parent.parent / "data" / "knowledge_base" / "faqs.json"
+        kb_path = Path(__file__).parent / "data" / "knowledge_base" / "faqs.json"
         print(f"\n📚 Loading knowledge base from: {kb_path}")
 
         with open(kb_path, 'r') as f:
