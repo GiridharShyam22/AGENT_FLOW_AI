@@ -8,48 +8,43 @@ from typing import List, Dict, Tuple
 import json
 from pathlib import Path
 
-# Try to import sentence_transformers, fallback to mock if not available
+# Try to import sentence_transformers, fallback to TF-IDF if not available (to save 500MB+ RAM on Render!)
 try:
     from sentence_transformers import SentenceTransformer
     HAS_TRANSFORMERS = True
 except ImportError:
     HAS_TRANSFORMERS = False
-    print("⚠️  sentence-transformers not installed, using mock embeddings")
+    print("⚠️  sentence-transformers not installed, using lightweight TF-IDF Embedder to save RAM!")
 
-
-class MockEmbedder:
-    """Mock embedder for when sentence-transformers is not available"""
+class TfidfEmbedder:
+    """Lightweight TF-IDF embedder for low-RAM environments (like Render Free Tier)"""
+    def __init__(self):
+        from sklearn.feature_extraction.text import TfidfVectorizer
+        self.vectorizer = TfidfVectorizer(stop_words='english')
+        self.is_fitted = False
+        
+    def fit(self, texts):
+        if not texts:
+            texts = ["dummy text to fit vectorizer"]
+        self.vectorizer.fit(texts)
+        self.is_fitted = True
+        
     def encode(self, text, convert_to_numpy=True):
-        """Generate mock embedding"""
-        # Simple hash-based embedding for demo
-        import hashlib
-        hash_obj = hashlib.md5(text.encode())
-        hash_bytes = hash_obj.digest()
-        embedding = np.frombuffer(hash_bytes, dtype=np.float32)
-        # Expand to 384 dimensions
-        embedding = np.tile(embedding, (12,))[:384]
-        return embedding / (np.linalg.norm(embedding) + 1e-8)
-
+        if not self.is_fitted:
+            self.fit([text])
+        # Returns sparse matrix, convert to dense 1D array
+        return self.vectorizer.transform([text]).toarray()[0].astype(np.float32)
 
 class RAGPipeline:
     """Retrieval-Augmented Generation Pipeline"""
     
-    def __init__(self, knowledge_base: dict, top_k: int = 2, similarity_threshold: float = 0.25):
-        """
-        Initialize RAG pipeline
-        
-        Args:
-            knowledge_base: Dictionary with FAQ items
-            top_k: Number of top results to retrieve
-            similarity_threshold: Minimum similarity score
-        """
+    def __init__(self, knowledge_base: dict, top_k: int = 2, similarity_threshold: float = 0.15):
         self.knowledge_base = knowledge_base
         self.top_k = top_k
         self.similarity_threshold = similarity_threshold
         
         print("🔧 Initializing RAG Pipeline...")
         
-        # Load or create embedder
         if HAS_TRANSFORMERS:
             try:
                 print("  📥 Loading embedding model (all-MiniLM-L6-v2)...")
@@ -57,25 +52,31 @@ class RAGPipeline:
                 print("  ✅ Embedding model loaded")
             except Exception as e:
                 print(f"  ⚠️  Failed to load model: {e}")
-                self.embeddings_model = MockEmbedder()
+                self.embeddings_model = TfidfEmbedder()
+                HAS_TRANSFORMERS = False
         else:
-            self.embeddings_model = MockEmbedder()
+            self.embeddings_model = TfidfEmbedder()
         
-        # Prepare knowledge base
         self._prepare_knowledge_base()
         print("✅ RAG Pipeline initialized\n")
     
     def _prepare_knowledge_base(self):
-        """Prepare and embed knowledge base"""
         self.kb_items = []
         self.kb_embeddings = []
         
         print(f"  📚 Embedding {len(self.knowledge_base['faqItems'])} FAQ items...")
         
+        # If using TF-IDF, we must fit on all text first!
+        texts = []
         for item in self.knowledge_base['faqItems']:
-            # Combine text for embedding
             text = f"{item['question']} {item['answer']} {' '.join(item.get('tags', []))}"
+            texts.append(text)
             
+        if not HAS_TRANSFORMERS:
+            self.embeddings_model.fit(texts)
+        
+        for i, item in enumerate(self.knowledge_base['faqItems']):
+            text = texts[i]
             self.kb_items.append({
                 'id': item['id'],
                 'question': item['question'],
@@ -84,8 +85,6 @@ class RAGPipeline:
                 'tags': item.get('tags', []),
                 'text': text
             })
-            
-            # Embed the item
             embedding = self.embeddings_model.encode(text, convert_to_numpy=True)
             self.kb_embeddings.append(embedding)
         
@@ -93,8 +92,6 @@ class RAGPipeline:
         print(f"  ✅ Embedded {len(self.kb_items)} items")
 
     def add_document(self, text: str, filename: str = "Uploaded Document"):
-        """Dynamically add a new document to the knowledge base"""
-        # Simple chunking by paragraph
         paragraphs = [p.strip() for p in text.split('\n\n') if len(p.strip()) > 20]
         
         new_embeddings = []
@@ -108,8 +105,6 @@ class RAGPipeline:
                 'text': p
             }
             self.kb_items.append(item)
-            
-            # Embed the chunk
             embedding = self.embeddings_model.encode(p, convert_to_numpy=True)
             new_embeddings.append(embedding)
             
@@ -123,30 +118,14 @@ class RAGPipeline:
         print(f"✅ Added {len(paragraphs)} chunks from {filename} to Vector DB")
         
     def retrieve(self, query: str) -> List[Dict]:
-        """
-        Retrieve top-k most relevant documents
-        
-        Args:
-            query: User query
-            
-        Returns:
-            List of relevant FAQ items
-        """
-        # Embed query
         query_embedding = self.embeddings_model.encode(query, convert_to_numpy=True)
-        
-        # Compute similarities
         similarities = self._cosine_similarity(query_embedding, self.kb_embeddings)
         
-        # Get top-k indices
         top_indices = np.argsort(similarities)[::-1][:self.top_k]
         
-        # Build results
         results = []
         for idx in top_indices:
             score = similarities[idx]
-            
-            # Filter by threshold
             if score >= self.similarity_threshold:
                 results.append({
                     'id': self.kb_items[idx]['id'],
@@ -156,17 +135,14 @@ class RAGPipeline:
                     'tags': self.kb_items[idx]['tags'],
                     'score': float(score)
                 })
-        
         return results
     
     def _cosine_similarity(self, a: np.ndarray, b: np.ndarray) -> np.ndarray:
-        """Compute cosine similarity"""
         a_norm = a / (np.linalg.norm(a) + 1e-8)
         b_norm = b / (np.linalg.norm(b, axis=1, keepdims=True) + 1e-8)
         return np.dot(b_norm, a_norm)
     
     def generate_context(self, retrieved_items: List[Dict]) -> Tuple[str, List[Dict]]:
-        """Generate context string from retrieved items"""
         if not retrieved_items:
             return "", []
         
@@ -179,7 +155,6 @@ class RAGPipeline:
                 f"Q: {item['question']}\n"
                 f"A: {item['answer']}\n"
             )
-            
             citations.append({
                 'id': item['id'],
                 'question': item['question'],
@@ -187,25 +162,19 @@ class RAGPipeline:
                 'relevance_score': item['score'],
                 'source_number': i
             })
-        
         return "\n".join(context_parts), citations
     
-    def is_on_topic(self, query: str, threshold: float = 0.25) -> bool:
-        """Determine if query is on-topic"""
+    def is_on_topic(self, query: str, threshold: float = 0.15) -> bool:
         results = self.retrieve(query)
-        
         if not results:
             return False
-        
         return results[0]['score'] >= threshold
     
     def get_kb_stats(self) -> Dict:
-        """Get knowledge base statistics"""
         categories = {}
         for item in self.kb_items:
             cat = item['category']
             categories[cat] = categories.get(cat, 0) + 1
-        
         return {
             'total_items': len(self.kb_items),
             'categories': categories,
