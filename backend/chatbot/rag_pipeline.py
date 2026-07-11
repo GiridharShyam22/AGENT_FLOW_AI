@@ -53,8 +53,6 @@ class RAGPipeline:
             except Exception as e:
                 print(f"  ⚠️  Failed to load model: {e}")
                 self.embeddings_model = TfidfEmbedder()
-                global HAS_TRANSFORMERS
-                HAS_TRANSFORMERS = False
         else:
             self.embeddings_model = TfidfEmbedder()
         
@@ -73,7 +71,7 @@ class RAGPipeline:
             text = f"{item['question']} {item['answer']} {' '.join(item.get('tags', []))}"
             texts.append(text)
             
-        if not HAS_TRANSFORMERS:
+        if isinstance(self.embeddings_model, TfidfEmbedder):
             self.embeddings_model.fit(texts)
         
         for i, item in enumerate(self.knowledge_base['faqItems']):
