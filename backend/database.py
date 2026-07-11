@@ -4,7 +4,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MONGO_URI = os.getenv("MONGO_URL", os.getenv("MONGO_URI", "mongodb://localhost:27017"))
 DB_NAME = os.getenv("MONGO_DB_NAME", "agentflow_db")
 
 class Database:
@@ -14,10 +13,22 @@ class Database:
 db_config = Database()
 
 async def connect_to_mongo():
-    logger.info("Connecting to MongoDB...")
-    db_config.client = AsyncIOMotorClient(MONGO_URI)
-    db_config.db = db_config.client[DB_NAME]
-    logger.info("Connected to MongoDB!")
+    # Read env var at connection time (not module load time) so Render env vars are available
+    MONGO_URI = os.getenv("MONGO_URL", os.getenv("MONGO_URI", "mongodb://localhost:27017"))
+    logger.info(f"Connecting to MongoDB with URI prefix: {MONGO_URI[:20]}...")
+    try:
+        db_config.client = AsyncIOMotorClient(
+            MONGO_URI,
+            serverSelectionTimeoutMS=10000,  # 10 second timeout
+            connectTimeoutMS=10000,
+        )
+        db_config.db = db_config.client[DB_NAME]
+        # Force a real connection to verify it works
+        await db_config.client.admin.command("ping")
+        logger.info("✅ Connected to MongoDB!")
+    except Exception as e:
+        logger.error(f"❌ Failed to connect to MongoDB: {e}")
+        raise
 
 async def close_mongo_connection():
     logger.info("Closing MongoDB connection...")
@@ -26,4 +37,6 @@ async def close_mongo_connection():
     logger.info("MongoDB connection closed.")
 
 def get_db():
+    if db_config.db is None:
+        raise RuntimeError("Database not connected. Check MONGO_URL environment variable on Render.")
     return db_config.db
