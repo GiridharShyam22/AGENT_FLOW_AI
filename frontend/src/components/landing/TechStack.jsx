@@ -18,7 +18,7 @@ const TECHS = [
     icon: Zap,
     desc: 'High-performance Python backend',
     color: '#009688',
-    animation: { scale: [1, 1.2, 1] },
+    animation: { rotate: [0, -20, 20, -20, 0], scale: [1, 1.3, 1] },
     transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
   },
   {
@@ -26,7 +26,7 @@ const TECHS = [
     icon: Cpu,
     desc: 'Local LLM inference engine',
     color: '#A0A0A0',
-    animation: { y: [-3, 3, -3] },
+    animation: { y: [-4, 4, -4], rotate: [0, 5, -5, 0] },
     transition: { repeat: Infinity, duration: 2, ease: "easeInOut" }
   },
   {
@@ -34,15 +34,15 @@ const TECHS = [
     icon: Network,
     desc: 'Retrieval-Augmented Generation',
     color: '#FFFFFF',
-    animation: { rotate: [-5, 5, -5] },
-    transition: { repeat: Infinity, duration: 3, ease: "easeInOut" }
+    animation: { rotate: 360, scale: [1, 1.1, 1] },
+    transition: { repeat: Infinity, duration: 6, ease: "linear" }
   },
   {
     name: 'Vector Search',
     icon: Target,
     desc: 'Semantic similarity retrieval',
     color: '#888888',
-    animation: { scale: [0.9, 1.1, 0.9] },
+    animation: { scale: [0.8, 1.2, 0.8], opacity: [0.7, 1, 0.7] },
     transition: { repeat: Infinity, duration: 2, ease: "easeInOut" }
   },
   {
@@ -50,15 +50,15 @@ const TECHS = [
     icon: ShieldCheck,
     desc: 'Air-gapped private deployment',
     color: '#FFFFFF',
-    animation: { y: [-2, 2, -2] },
-    transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" }
+    animation: { rotateY: [0, 360] },
+    transition: { repeat: Infinity, duration: 3, ease: "linear" }
   },
   {
     name: 'Python',
     icon: Terminal,
     desc: 'Core AI/ML ecosystem',
     color: '#FFD43B',
-    animation: { opacity: [0.5, 1, 0.5] },
+    animation: { y: [-3, 3, -3], rotate: [-5, 5, -5] },
     transition: { repeat: Infinity, duration: 2, ease: "easeInOut" }
   },
   {
@@ -66,8 +66,8 @@ const TECHS = [
     icon: Dna,
     desc: 'Dense vector representations',
     color: '#FF6B6B',
-    animation: { rotate: 360 },
-    transition: { repeat: Infinity, duration: 5, ease: "linear" }
+    animation: { rotateY: [0, 360], rotate: 360 },
+    transition: { repeat: Infinity, duration: 4, ease: "linear" }
   },
 ]
 

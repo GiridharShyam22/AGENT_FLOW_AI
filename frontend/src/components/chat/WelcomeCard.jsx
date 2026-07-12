@@ -4,16 +4,16 @@ import styles from './WelcomeCard.module.css'
 import FloatingParticles from '../three/FloatingParticles'
 
 const PROMPTS = [
-  { icon: Search, text: 'What documents are in the knowledge base?', animation: { scale: [0.9, 1.1, 0.9] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
-  { icon: Zap, text: 'Explain how the RAG pipeline works', animation: { scale: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } },
-  { icon: Shield, text: 'How is my data kept private?', animation: { y: [-2, 2, -2] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } },
-  { icon: BarChart2, text: 'Show retrieval confidence metrics', animation: { opacity: [0.6, 1, 0.6] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
+  { icon: Search, text: 'What documents are in the knowledge base?', animation: { rotate: [-15, 15, -15], x: [-3, 3, -3] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
+  { icon: Zap, text: 'Explain how the RAG pipeline works', animation: { rotate: [0, -20, 20, -20, 0], scale: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } },
+  { icon: Shield, text: 'How is my data kept private?', animation: { rotateY: [0, 360] }, transition: { repeat: Infinity, duration: 3, ease: "linear" } },
+  { icon: BarChart2, text: 'Show retrieval confidence metrics', animation: { scale: [0.9, 1.1, 0.9], y: [-2, 2, -2] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
 ]
 
 const FEATS = [
-  { icon: <motion.div animate={{ y: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}><ShieldCheck size={18} /></motion.div>, title: 'Fully Offline', desc: 'Zero data leaves your network', color: '#FFFFFF' },
-  { icon: <motion.div animate={{ scale: [0.95, 1.05, 0.95] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Database size={18} /></motion.div>,    title: 'Private KB',    desc: '247 documents indexed',           color: '#FFFFFF' },
-  { icon: <motion.div animate={{ y: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Cpu size={18} /></motion.div>,         title: 'RAG Engine',    desc: 'Sub-100ms retrieval',              color: '#A0A0A0' },
+  { icon: <motion.div animate={{ rotateY: [0, 360] }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }}><ShieldCheck size={18} /></motion.div>, title: 'Fully Offline', desc: 'Zero data leaves your network', color: '#FFFFFF' },
+  { icon: <motion.div animate={{ y: [-3, 3, -3], rotate: [-3, 3, -3] }} transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}><Database size={18} /></motion.div>,    title: 'Private KB',    desc: '247 documents indexed',           color: '#FFFFFF' },
+  { icon: <motion.div animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }} transition={{ repeat: Infinity, duration: 6, ease: "linear" }}><Cpu size={18} /></motion.div>,         title: 'RAG Engine',    desc: 'Sub-100ms retrieval',              color: '#A0A0A0' },
 ]
 
 const STAGGER = {
