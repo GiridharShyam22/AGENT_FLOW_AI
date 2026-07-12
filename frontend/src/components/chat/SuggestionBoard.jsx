@@ -7,7 +7,7 @@ import styles from './SuggestionBoard.module.css'
 const CATEGORIES = [
   {
     id: 'agent-basics',
-    icon: <Zap size={16} />,
+    icon: <motion.div animate={{ rotate: [0, -15, 15, -15, 0], scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><Zap size={16} /></motion.div>,
     label: 'Agent Basics',
     questions: [
       'What is an autonomous AI agent?',
@@ -18,7 +18,7 @@ const CATEGORIES = [
   },
   {
     id: 'tool-calling',
-    icon: <Wrench size={16} />,
+    icon: <motion.div animate={{ rotate: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Wrench size={16} /></motion.div>,
     label: 'Tool Calling',
     questions: [
       'What is tool calling (function calling)?',
@@ -28,7 +28,7 @@ const CATEGORIES = [
   },
   {
     id: 'memory-context',
-    icon: <Search size={16} />,
+    icon: <motion.div animate={{ x: [-2, 2, -2], rotate: [-10, 10, -10] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Search size={16} /></motion.div>,
     label: 'Memory & Context',
     questions: [
       'How do agents maintain memory over long conversations?',
@@ -39,7 +39,7 @@ const CATEGORIES = [
   },
   {
     id: 'multi-agent',
-    icon: <Shield size={16} />,
+    icon: <motion.div animate={{ rotateY: [0, 360] }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }}><Shield size={16} /></motion.div>,
     label: 'Multi-Agent Systems',
     questions: [
       'What is a multi-agent system?',
@@ -50,7 +50,7 @@ const CATEGORIES = [
   },
   {
     id: 'rag-integration',
-    icon: <ArrowUpRight size={16} />,
+    icon: <motion.div animate={{ x: [0, 2, 0], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><ArrowUpRight size={16} /></motion.div>,
     label: 'RAG Integration',
     questions: [
       'How does RAG improve an AI agent?',
