@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, EyeOff, ArrowRight } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight, ChevronLeft } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import logoImage from '../assets/logo.png'
 import styles from './AuthPage.module.css'
@@ -34,6 +34,10 @@ export default function LoginPage() {
 
   return (
     <div className={styles.page}>
+      <Link to="/" className={styles.back_btn}>
+        <ChevronLeft size={16} /> Back to home
+      </Link>
+      
       <AnimatePresence>
         {showSplash && (
           <motion.div

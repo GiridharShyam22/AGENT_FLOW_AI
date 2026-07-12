@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Zap, Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react'
+import { Zap, Eye, EyeOff, ArrowRight, AlertCircle, ChevronLeft } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import logoImage from '../assets/logo.png'
 import styles from './AuthPage.module.css'
@@ -35,6 +35,10 @@ export default function RegisterPage() {
 
   return (
     <div className={styles.page}>
+      <Link to="/" className={styles.back_btn}>
+        <ChevronLeft size={16} /> Back to home
+      </Link>
+      
       <div className={styles.page__grid} aria-hidden="true" />
 
       <motion.div
