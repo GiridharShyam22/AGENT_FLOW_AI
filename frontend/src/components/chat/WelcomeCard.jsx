@@ -1,19 +1,19 @@
 import { motion } from 'framer-motion'
-import { Sparkles, ShieldCheck, Database, Cpu, ArrowRight } from 'lucide-react'
+import { Sparkles, ShieldCheck, Database, Cpu, ArrowRight, Search, Zap, Shield, BarChart2 } from 'lucide-react'
 import styles from './WelcomeCard.module.css'
 import FloatingParticles from '../three/FloatingParticles'
 
 const PROMPTS = [
-  { icon: '🔍', text: 'What documents are in the knowledge base?' },
-  { icon: '⚡', text: 'Explain how the RAG pipeline works' },
-  { icon: '🛡️', text: 'How is my data kept private?' },
-  { icon: '📊', text: 'Show retrieval confidence metrics' },
+  { icon: Search, text: 'What documents are in the knowledge base?', animation: { scale: [0.9, 1.1, 0.9] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
+  { icon: Zap, text: 'Explain how the RAG pipeline works', animation: { scale: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } },
+  { icon: Shield, text: 'How is my data kept private?', animation: { y: [-2, 2, -2] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } },
+  { icon: BarChart2, text: 'Show retrieval confidence metrics', animation: { opacity: [0.6, 1, 0.6] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } },
 ]
 
 const FEATS = [
-  { icon: <ShieldCheck size={18} />, title: 'Fully Offline', desc: 'Zero data leaves your network', color: '#FFFFFF' },
-  { icon: <Database size={18} />,    title: 'Private KB',    desc: '247 documents indexed',           color: '#FFFFFF' },
-  { icon: <Cpu size={18} />,         title: 'RAG Engine',    desc: 'Sub-100ms retrieval',              color: '#A0A0A0' },
+  { icon: <motion.div animate={{ y: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}><ShieldCheck size={18} /></motion.div>, title: 'Fully Offline', desc: 'Zero data leaves your network', color: '#FFFFFF' },
+  { icon: <motion.div animate={{ scale: [0.95, 1.05, 0.95] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Database size={18} /></motion.div>,    title: 'Private KB',    desc: '247 documents indexed',           color: '#FFFFFF' },
+  { icon: <motion.div animate={{ y: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}><Cpu size={18} /></motion.div>,         title: 'RAG Engine',    desc: 'Sub-100ms retrieval',              color: '#A0A0A0' },
 ]
 
 const STAGGER = {
@@ -46,7 +46,12 @@ export default function WelcomeCard({ onSend }) {
         {/* Icon + heading */}
         <motion.div className={styles.welcome__top} variants={ITEM}>
           <div className={styles.welcome__icon}>
-            <Sparkles size={26} />
+            <motion.div
+              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            >
+              <Sparkles size={26} />
+            </motion.div>
           </div>
           <div>
             <h1 className={styles.welcome__title}>
@@ -94,7 +99,11 @@ export default function WelcomeCard({ onSend }) {
                 className={styles.welcome__prompt_btn}
                 onClick={() => onSend && onSend(p.text)}
               >
-                <span className={styles.welcome__prompt_icon}>{p.icon}</span>
+                <span className={styles.welcome__prompt_icon}>
+                  <motion.div animate={p.animation} transition={p.transition} style={{ display: 'flex', alignItems: 'center' }}>
+                    <p.icon size={16} />
+                  </motion.div>
+                </span>
                 <span>{p.text}</span>
                 <ArrowRight size={13} className={styles.welcome__prompt_arrow} />
               </button>
