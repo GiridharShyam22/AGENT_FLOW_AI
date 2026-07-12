@@ -49,7 +49,7 @@ export default function CTASection() {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => navigate('/workspace')}
+                onClick={() => navigate('/register')}
                 id="cta-get-started"
               >
                 Launch Platform <ArrowRight size={18} />

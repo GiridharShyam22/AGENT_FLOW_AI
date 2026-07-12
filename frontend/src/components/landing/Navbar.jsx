@@ -104,7 +104,7 @@ export default function Navbar() {
               <Button
                 variant="primary"
                 size="sm"
-                onClick={() => navigate('/workspace')}
+                onClick={() => navigate('/register')}
               >
                 Get Started
               </Button>
@@ -158,7 +158,7 @@ export default function Navbar() {
                   <Button variant="outline" size="md" onClick={() => navigate('/login')}>
                     Login
                   </Button>
-                  <Button variant="primary" size="md" onClick={() => navigate('/workspace')}>
+                  <Button variant="primary" size="md" onClick={() => navigate('/register')}>
                     Get Started
                   </Button>
                 </>

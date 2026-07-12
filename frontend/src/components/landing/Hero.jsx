@@ -106,7 +106,7 @@ export default function Hero() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => navigate('/workspace')}
+              onClick={() => navigate('/register')}
               id="hero-get-started"
             >
               Get Started <ArrowRight size={18} />
