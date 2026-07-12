@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Zap, LogOut } from 'lucide-react'
+import { Zap, LogOut, LogIn } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import styles from './WorkspaceHeader.module.css'
@@ -42,15 +42,27 @@ export default function WorkspaceHeader() {
           <Zap size={14} strokeWidth={2.5} />
         </div>
 
-        <button
-          className={styles.header__logout_btn}
-          onClick={handleLogout}
-          title="Sign out"
-          aria-label="Sign out"
-        >
-          <LogOut size={15} />
-          <span>Logout</span>
-        </button>
+        {user ? (
+          <button
+            className={styles.header__logout_btn}
+            onClick={handleLogout}
+            title="Sign out"
+            aria-label="Sign out"
+          >
+            <LogOut size={15} />
+            <span>Logout</span>
+          </button>
+        ) : (
+          <button
+            className={styles.header__logout_btn}
+            onClick={() => navigate('/login')}
+            title="Sign in"
+            aria-label="Sign in"
+          >
+            <LogIn size={15} />
+            <span>Sign In</span>
+          </button>
+        )}
       </div>
     </motion.header>
   )
